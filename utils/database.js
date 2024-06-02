@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-let isConnected  = false; // track the connection 
+let isConnected = false; // track the connection
 
 export const connectToDB = async () => {
     mongoose.set('strictQuery', true);
@@ -10,15 +10,14 @@ export const connectToDB = async () => {
         return;
     }
     try {
-        await mongoose.connect(process.env.MONGO_URI, {
-            dbName: 'share prompt',
-            useUserUrlParser: true,
+        await mongoose.connect(process.env.MONGODB_URI, {
+            dbName: 'share_prompt',
+            useNewUrlParser: true,
             useUnifiedTopology: true,
-        })
+        });
         isConnected = true;
-        console.log('MongoDB connected')
-        
+        console.log('MongoDB connected');
     } catch (error) {
-        console.log(error);
+        console.error('MongoDB connection error:', error);
     }
-}
+};
